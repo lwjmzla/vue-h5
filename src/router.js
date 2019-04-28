@@ -50,9 +50,8 @@ const router = new Router({
 
 // 全局路由钩子函数 对全局有效
 router.beforeEach((to, from, next) => {
-  console.log(to)
   let auth = to.meta.auth
-  let token = store.getters['login/token']
+  let token = store.getters['token']
 
   if (auth) {
     // 需要登录

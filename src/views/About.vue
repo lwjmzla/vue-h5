@@ -4,7 +4,7 @@
             <router-link to="/">Home</router-link>|
             <router-link to="/about">About</router-link>
         </div>
-        <h1>用户名:{{ user.name}}</h1>
+        <h1>用户名:{{ user.name}}<span class="arrow"></span></h1>
         <img :src="user.portrait" alt>
         <p class="msg">
             For a guide and recipes on how to configure / customize this project,
@@ -32,7 +32,7 @@ export default {
   computed: {
     // vuex modules 中的gettes,state获取方式，modules中要定义namespaced: true
     // ...mapGetters('login',['user','token']),
-    ...mapState('login', ['user', 'token'])
+    ...mapState(['user', 'token'])
   }
 }
 </script>
@@ -63,5 +63,8 @@ h1 {
 }
 .msg {
   font-size: 32px;
+}
+.arrow{
+  @include arrow(bottom,10px,#F00);
 }
 </style>

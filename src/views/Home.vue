@@ -19,8 +19,13 @@ export default {
   components: {
     HelloWorld
   },
+  activated() {
+    console.log(1)
+  },
   created () {
-    getIndex({ pageSiza: 100, num: 10 })
+    getIndex({ pageSiza: 100, num: 10 }).then((res) => {
+      console.log(res)
+    })
     // console.log(this.$wechat)
   },
   mounted () {},

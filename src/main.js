@@ -6,9 +6,10 @@ import filters from './filters/index'
 import wechat from '@/common/wechat/index'
 Vue.use(wechat)
 // 注入全局过滤器
-Object.keys(filters).forEach(item => {
-  Vue.filter(item, filters[item])
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
 })
+// console.log(Vue.wechat)
 // const wx = Vue.wechat;
 // wx.config({
 //     appId: '',

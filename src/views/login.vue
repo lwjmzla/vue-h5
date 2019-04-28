@@ -20,7 +20,8 @@
 
 <script>
 // @ is an alias to /src
-import { mapActions } from 'vuex'
+import { mapMutations } from 'vuex'
+import { login } from 'api/index'
 import { Toast } from 'mint-ui'
 export default {
   name: 'login',
@@ -34,7 +35,7 @@ export default {
   created () {},
   mounted () {},
   methods: {
-    ...mapActions('login', ['login']),
+    ...mapMutations(['SET_TOKEN', 'SET_USER']),
     loginBtn () {
       if (this.username === '' || this.password === '') {
         Toast({
@@ -43,11 +44,28 @@ export default {
           duration: 2000
         })
       } else {
-        this.login({
+        login({
           username: this.username,
-          password: this.password,
-          $router: this.$router,
-          $route: this.$route
+          password: this.password
+        }).then((res) => {
+          console.log(res)
+          if (res.code === 0) {
+            this.SET_TOKEN(res.data.token)
+            this.SET_USER(res.data)
+            sessionStorage.token = res.data.token
+            sessionStorage.user = JSON.stringify(res.data)
+            Toast({
+              message: '登录成功',
+              position: 'middle',
+              duration: 2000
+            })
+            setTimeout(() => {
+              const redirect = this.$route.query.redirect || '/'
+              this.$router.replace({
+                path: redirect
+              })
+            }, 1000)
+          }
         })
       }
     }
@@ -67,7 +85,7 @@ export default {
   .list {
     height: 100px;
     margin: 0 45px 2px 45px;
-    border-bottom: 1px solid #dcdcdc;
+    border-bottom: 1PX solid #dcdcdc;
     position: relative;
     input {
       width: 100%;

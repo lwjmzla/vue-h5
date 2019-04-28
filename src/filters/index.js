@@ -18,6 +18,8 @@ const formatTimer = function (val, hours) {
     }
   }
 }
+const haha = function () {}
 export default {
-  formatTimer
+  formatTimer,
+  haha
 }
