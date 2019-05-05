@@ -5,7 +5,7 @@ ajax请求函数模块
 import axios from '@/axios/http.js'
 // import axios from 'axios'
 import qs from 'qs'
-export default function ajax (url, data = {}, type = 'GET') {
+export default function ajax (url, data = {}, type = 'GET', needLoading) {
   return new Promise(function (resolve, reject) {
     // 执行异步ajax请求
     let promise
@@ -21,7 +21,8 @@ export default function ajax (url, data = {}, type = 'GET') {
       // }
       // 发送get请求 // 可以改造一下
       promise = axios.get(url, {
-        params: data
+        params: data,
+        needLoading
       })
     } else {
       // 发送post请求
@@ -29,6 +30,7 @@ export default function ajax (url, data = {}, type = 'GET') {
       promise = axios({
         method: 'post',
         url,
+        needLoading,
         data: qs.stringify(data) // qs.stringify({ a: ['b', 'c', 'd'] }, { indices: false }); 如果里面放了数组之类的 加上  { indices: false } 去qs文档看
         // headers: {
         //   // 'Content-Type': 'application/json'

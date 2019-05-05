@@ -20,9 +20,10 @@ let requestsNum = 0
 
 // 添加请求拦截器
 service.interceptors.request.use(function (config) {
+  console.log(config)
   // 请求次数加1
   requestsNum++
-  if (!config.noLoading) {
+  if (config.needLoading) { // !noLoading 这个其实 语义不好，应该用needLoading
     Indicator.open('数据加载中')
   }
 
